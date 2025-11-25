@@ -1,0 +1,73 @@
+Query,Verdict,Is_Malicious
+SELECT * FROM products WHERE price > 100;,SAFE,False
+"SELECT id, name FROM users WHERE status = 'active';",SAFE,False
+INSERT INTO logs (message) VALUES ('System backup started');,SAFE,False
+UPDATE settings SET value = 'off' WHERE key = 'maintenance';,SAFE,False
+DELETE FROM sessions WHERE last_activity < NOW() - INTERVAL 1 DAY;,SAFE,False
+SELECT count(*) FROM orders;,SAFE,False
+SELECT * FROM blog WHERE content LIKE '%SQL%';,SAFE,False
+INSERT INTO feedback (comment) VALUES ('How to use SELECT?');,SAFE,False
+SELECT * FROM employees WHERE department = 'IT';,SAFE,False
+UPDATE inventory SET stock = 50 WHERE sku = 'ABC-123';,SAFE,False
+SELECT * FROM users WHERE username = 'guest';,SAFE,False
+INSERT INTO tickets (subject) VALUES ('Login error');,SAFE,False
+SELECT (100 + 50) AS total;,SAFE,False
+SELECT * FROM items WHERE code = 'UNION-99';,SAFE,False
+DELETE FROM temp_files WHERE created_at < NOW();,SAFE,False
+"SELECT ""SELECT * FROM users"" AS query_string;",SAFE,False
+SELECT * FROM (SELECT id FROM customers) AS c;,SAFE,False
+SELECT * FROM search WHERE term LIKE '%admin%';,SAFE,False
+INSERT INTO banned_ips (ip) VALUES ('10.0.0.1');,SAFE,False
+SELECT length(bio) FROM profiles;,SAFE,False
+SELECT * FROM json_data WHERE info->>'$.role' = 'user';,SAFE,False
+SELECT * FROM users WHERE id = 1 OR 1=1;,MALICIOUS,True
+' OR '1'='1,MALICIOUS,True
+admin' --,MALICIOUS,True
+""" OR ""1""=""1",MALICIOUS,True
+"' UNION SELECT null, username, password FROM users --",MALICIOUS,True
+1; DROP TABLE customers; --,MALICIOUS,True
+' AND 1=1,MALICIOUS,True
+' AND 1=0,MALICIOUS,True
+1' ORDER BY 1 --,MALICIOUS,True
+1' ORDER BY 9999 --,MALICIOUS,True
+admin' #,MALICIOUS,True
+' OR 'a'='a,MALICIOUS,True
+1' AND (SELECT count(*) FROM information_schema.tables) > 0 --,MALICIOUS,True
+"1 UNION SELECT 1, version(), 3 --",MALICIOUS,True
+' OR 1=1#,MALICIOUS,True
+admin'/*,MALICIOUS,True
+' OR '1'='1' --,MALICIOUS,True
+1' WAITFOR DELAY '0:0:05' --,MALICIOUS,True
+1; EXEC xp_cmdshell('net user'),MALICIOUS,True
+' HAVING 1=1 --,MALICIOUS,True
+1' AND SLEEP(10) --,MALICIOUS,True
+"-1 UNION SELECT 1, schema_name, 3 FROM information_schema.schemata",MALICIOUS,True
+SeLeCt * FrOm users WhErE id = 1,MALICIOUS,True
+"UN/**/ION SE/**/LECT 1,2,3",MALICIOUS,True
+S%E%L%E%C%T * FROM users,MALICIOUS,True
+SELECT * FROM information_schema.tables,MALICIOUS,True
+SELECT table_name FROM information_schema.columns,MALICIOUS,True
+SELECT * FROM mysql.user,MALICIOUS,True
+SELECT * FROM pg_shadow,MALICIOUS,True
+SELECT * FROM master..syslogins,MALICIOUS,True
+"1' AND ExtractValue(1, CONCAT(0x5c, (SELECT database()))) --",MALICIOUS,True
+"-1 UNION SELECT 1, group_concat(table_name), 3 FROM information_schema.tables",MALICIOUS,True
+1' AND 1=1 AND '%'=',MALICIOUS,True
+(SELECT 1 FROM (SELECT SLEEP(5))A),MALICIOUS,True
+1' OR '1'='1' /*,MALICIOUS,True
+"UNION SELECT 1, LOAD_FILE('/etc/passwd'), 3",MALICIOUS,True
+"1' AND (SELECT 1 FROM (SELECT COUNT(*),CONCAT(version(),FLOOR(RAND(0)*2))x FROM information_schema.tables GROUP BY x)a) --",MALICIOUS,True
+"-1' UNION SELECT 1, @@version, 3 --+",MALICIOUS,True
+1 OR 1=1 LIMIT 1,MALICIOUS,True
+"1"" OR ""1""=""1",MALICIOUS,True
+1' || (SELECT 'hax') || '1,MALICIOUS,True
+SELECT * FROM users WHERE id=1 AND 1=(SELECT COUNT(*) FROM tabname); --,MALICIOUS,True
+"1' AND 1=2 UNION SELECT 1, 'admin', 'hash_value' --",MALICIOUS,True
+/*!50000 SELECT * FROM users */,MALICIOUS,True
+%27%20OR%201=1,MALICIOUS,True
+admin') OR ('1'='1,MALICIOUS,True
+1' ORDER BY (CASE WHEN (1=1) THEN 1 ELSE 0 END) --,MALICIOUS,True
+1' AND (SELECT * FROM (SELECT(SLEEP(5)))a) --,MALICIOUS,True
+"id=1' AND 1=0 UNION ALL SELECT 1,2,3,4,5,6 --",MALICIOUS,True
+"' OR '1' IN ('1', '2') --",MALICIOUS,True
+admin' -- -,MALICIOUS,True

